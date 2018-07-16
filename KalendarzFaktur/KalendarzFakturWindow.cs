@@ -11,7 +11,7 @@ namespace KalendarzFaktur
     public partial class KalendarzFakturWindow : Form
     {
         const int _wysokoscRzeduTabeliFaktur = 22;
-        readonly Dictionary<int, Tuple<string, DateTime>> _przyciskDoWyszukiwaniaFaktur;
+        readonly Dictionary<int, Tuple<string, DateTime, double>> _przyciskDoWyszukiwaniaFaktur;
         readonly DataGridViewCellStyle _stylDomyslny;
         readonly KalendarzFaktur _kalendarzFaktur;
         readonly DataGridViewCellStyle _stylPilny;
@@ -22,7 +22,7 @@ namespace KalendarzFaktur
 
         public KalendarzFakturWindow()
         {
-            _przyciskDoWyszukiwaniaFaktur = new Dictionary<int, Tuple<string, DateTime>>();
+            _przyciskDoWyszukiwaniaFaktur = new Dictionary<int, Tuple<string, DateTime, double>>();
             _kalendarzFaktur = new KalendarzFaktur();
 
             InitializeComponent();
@@ -66,8 +66,7 @@ namespace KalendarzFaktur
         public void ZaktualizujTabeleKalendarzaFaktur(bool poleZedytowane)
         {
             int liczbaPoprzednichFaktur = TabelaFaktur.RowCount;
-            var fakturyPrzedawnione = _kalendarzFaktur.OdswiezAktywneFaktury();
-            if (poleZedytowane == false && fakturyPrzedawnione)
+            if (poleZedytowane == false)
             {
                 poleZedytowane = true;
             }
@@ -83,26 +82,23 @@ namespace KalendarzFaktur
                     TabelaFaktur[0, i].Style = _stylDomyslny;
                     TabelaFaktur[1, i].Style = _stylDomyslny;
                     TabelaFaktur[2, i].Style = _stylDomyslny;
-                    TabelaFaktur[3, i].Style = _stylDomyslny;
                 }
                 if (daysRemaining < 7 && daysRemaining >= 1)
                 {
                     TabelaFaktur[0, i].Style = _stylOstrzezenia;
                     TabelaFaktur[1, i].Style = _stylOstrzezenia;
                     TabelaFaktur[2, i].Style = _stylOstrzezenia;
-                    TabelaFaktur[3, i].Style = _stylOstrzezenia;
                 }
                 if (daysRemaining < 1)
                 {
                     TabelaFaktur[0, i].Style = _stylPilny;
                     TabelaFaktur[1, i].Style = _stylPilny;
                     TabelaFaktur[2, i].Style = _stylPilny;
-                    TabelaFaktur[3, i].Style = _stylPilny;
                 }
                 TabelaFaktur[0, i].Value = posortowane[i].Firma;
                 TabelaFaktur[1, i].Value = posortowane[i].Data;
                 TabelaFaktur[2, i].Value = posortowane[i].Kwota;
-                TabelaFaktur[3, i].Value = posortowane[i].CzasDoPrzedawnienia;
+                TabelaFaktur[2, i].Value = posortowane[i].DateTimeFaktury;
             }
 
             if (poleZedytowane)
@@ -114,7 +110,7 @@ namespace KalendarzFaktur
                 for (int i = 0; i < posortowane.Length; i++)
                 {
                     TabelaFaktur[0, i].Tag = i;
-                    _przyciskDoWyszukiwaniaFaktur.Add(i, new Tuple<string, DateTime>(posortowane[i].Firma, posortowane[i].DateTimeFaktury));
+                    _przyciskDoWyszukiwaniaFaktur.Add(i, new Tuple<string, DateTime, double>(posortowane[i].Firma, posortowane[i].DateTimeFaktury, Convert.ToDouble(posortowane[i].Kwota)));
                 }
             }
         }
@@ -135,15 +131,14 @@ namespace KalendarzFaktur
         void ClickWKomorkeTabeliFaktur(object sender, DataGridViewCellEventArgs e)
         {
             var wybraneKomorki = TabelaFaktur.SelectedCells;
-            var tag = (int)wybraneKomorki[0].Tag;
+            var tag = (int) wybraneKomorki[0].Tag;
             var szczegoly = _przyciskDoWyszukiwaniaFaktur[tag];
             var firma = szczegoly.Item1;
             var dateTime = szczegoly.Item2;
+            var kwota = szczegoly.Item3;
             EdytujFirme.Text = firma;
             EdycjaDatyPicker.Value = dateTime;
-            EdycjaCzasuPicker.Value = dateTime;
-            EdycjaDatyPicker.MinDate = DateTime.Now;
-            EdycjaCzasuPicker.MinDate = DateTime.Now;
+            EdycjaKwotyTextBox.Text = kwota.ToString();
             WlaczPolaSzczegolowFaktury();
             WylaczPolaEdycji();
         }
@@ -152,7 +147,7 @@ namespace KalendarzFaktur
         {
             EdytujFirme.Visible = true;
             EdycjaDatyPicker.Visible = true;
-            EdycjaCzasuPicker.Visible = true;
+            EdycjaKwotyTextBox.Visible = true;
             EdytujFaktureButton.Visible = true;
             UsunFaktureButton.Visible = true;
             EdytujFaktureButton.Enabled = true;
@@ -165,7 +160,7 @@ namespace KalendarzFaktur
             EdytujFaktureButton.Enabled = false;
             EdytujFirme.Visible = false;
             EdycjaDatyPicker.Visible = false;
-            EdycjaCzasuPicker.Visible = false;
+            EdycjaKwotyTextBox.Visible = false;
             EdytujFaktureButton.Visible = false;
             UsunFaktureButton.Visible = false;
         }
@@ -177,7 +172,7 @@ namespace KalendarzFaktur
             ZapiszZmianyButton.Visible = true;
             UsunFaktureButton.Enabled = false;
             EdycjaDatyPicker.Enabled = true;
-            EdycjaCzasuPicker.Enabled = true;
+            EdycjaKwotyTextBox.Enabled = true;
             EdytujFirme.Enabled = true;
         }
 
@@ -188,7 +183,7 @@ namespace KalendarzFaktur
             ZapiszZmianyButton.Visible = false;
             UsunFaktureButton.Enabled = true;
             EdycjaDatyPicker.Enabled = false;
-            EdycjaCzasuPicker.Enabled = false;
+            EdycjaKwotyTextBox.Enabled = false;
             EdytujFirme.Enabled = false;
         }
 
@@ -222,19 +217,15 @@ namespace KalendarzFaktur
         void SaveChangesButtonClick(object sender, EventArgs e)
         {
             var data = EdycjaDatyPicker.Value;
-            var czas = EdycjaCzasuPicker.Value;
+            var nowaKwota = Convert.ToDouble(EdycjaKwotyTextBox.Text);
             var nowaFirma = EdytujFirme.Text;
 
-            var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day, czas.Hour, czas.Minute, czas.Second);
-            if (dateTimeFaktury < DateTime.Now)
-            {
-                MessageBox.Show("Musisz wybrać czas i godzinę z przyszłości");
-                return;
-            }
+            var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
             var tag = (int)TabelaFaktur.SelectedCells[0].Tag;
             var poprzedniaFirma = _przyciskDoWyszukiwaniaFaktur[tag].Item1;
             var poprzedniCzas = _przyciskDoWyszukiwaniaFaktur[tag].Item2;
-            _kalendarzFaktur.EdytujFakture(poprzedniaFirma, poprzedniCzas, nowaFirma, dateTimeFaktury);
+            var poprzedniaKwota = _przyciskDoWyszukiwaniaFaktur[tag].Item3;
+            _kalendarzFaktur.EdytujFakture(poprzedniaFirma, poprzedniCzas, poprzedniaKwota, nowaFirma, dateTimeFaktury, nowaKwota);
             WylaczPolaEdycji();
             ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
             AktualizujKalendarz();
@@ -246,7 +237,7 @@ namespace KalendarzFaktur
             var daneFaktury = _przyciskDoWyszukiwaniaFaktur[tag];
             EdytujFirme.Text = daneFaktury.Item1;
             EdycjaDatyPicker.Value = daneFaktury.Item2;
-            EdycjaCzasuPicker.Value = daneFaktury.Item2;
+            EdycjaKwotyTextBox.Text = daneFaktury.Item3.ToString();
             WylaczPolaEdycji();
         }
 

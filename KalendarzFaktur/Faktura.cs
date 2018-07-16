@@ -6,8 +6,8 @@ namespace KalendarzFaktur
     {
         public string Firma;
         public DateTime Data;
-        public bool StracilaWaznosc;
         public bool Anulowana;
+        public double Kwota;
     }
 
     public class WyswietlFakture : IEquatable<WyswietlFakture>
@@ -16,7 +16,6 @@ namespace KalendarzFaktur
         public string Firma;
         public DateTime DateTimeFaktury;
         public string Kwota;
-        public string CzasDoPrzedawnienia;
 
         public bool Equals(WyswietlFakture druga)
         {

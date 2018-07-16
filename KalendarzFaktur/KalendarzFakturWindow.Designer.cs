@@ -31,16 +31,15 @@
             this.TabelaFaktur = new System.Windows.Forms.DataGridView();
             this.Firma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataNa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CzasNa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CzasDo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Kwota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.AnulujEdycjeButton = new System.Windows.Forms.Button();
             this.ZapiszZmianyButton = new System.Windows.Forms.Button();
-            this.EdycjaCzasuPicker = new System.Windows.Forms.DateTimePicker();
             this.EdycjaDatyPicker = new System.Windows.Forms.DateTimePicker();
             this.UsunFaktureButton = new System.Windows.Forms.Button();
             this.EdytujFirme = new System.Windows.Forms.TextBox();
             this.EdytujFaktureButton = new System.Windows.Forms.Button();
+            this.EdycjaKwotyTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.FakturyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabelaFaktur)).BeginInit();
@@ -128,8 +127,7 @@
             this.TabelaFaktur.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Firma,
             this.DataNa,
-            this.CzasNa,
-            this.CzasDo});
+            this.Kwota});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -154,7 +152,7 @@
             this.TabelaFaktur.TabIndex = 4;
             this.TabelaFaktur.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickWKomorkeTabeliFaktur);
             // 
-            // Description
+            // Firma
             // 
             this.Firma.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Firma.HeaderText = "Firma";
@@ -164,7 +162,7 @@
             this.Firma.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Firma.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // Data
+            // DataNa
             // 
             this.DataNa.HeaderText = "Data";
             this.DataNa.MinimumWidth = 70;
@@ -174,31 +172,21 @@
             this.DataNa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.DataNa.Width = 70;
             // 
-            // Czas
+            // CzasNa
             // 
-            this.CzasNa.HeaderText = "Czas";
-            this.CzasNa.MinimumWidth = 60;
-            this.CzasNa.Name = "CzasNa";
-            this.CzasNa.ReadOnly = true;
-            this.CzasNa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CzasNa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CzasNa.Width = 60;
-            // 
-            // CzasDo
-            // 
-            this.CzasDo.HeaderText = "CzasDoKońca";
-            this.CzasDo.MinimumWidth = 90;
-            this.CzasDo.Name = "CzasDo";
-            this.CzasDo.ReadOnly = true;
-            this.CzasDo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CzasDo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CzasDo.Width = 95;
+            this.Kwota.HeaderText = "Kwota";
+            this.Kwota.MinimumWidth = 60;
+            this.Kwota.Name = "Kwota";
+            this.Kwota.ReadOnly = true;
+            this.Kwota.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Kwota.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Kwota.Width = 60;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.EdycjaKwotyTextBox);
             this.groupBox1.Controls.Add(this.AnulujEdycjeButton);
             this.groupBox1.Controls.Add(this.ZapiszZmianyButton);
-            this.groupBox1.Controls.Add(this.EdycjaCzasuPicker);
             this.groupBox1.Controls.Add(this.EdycjaDatyPicker);
             this.groupBox1.Controls.Add(this.UsunFaktureButton);
             this.groupBox1.Controls.Add(this.EdytujFirme);
@@ -231,16 +219,6 @@
             this.ZapiszZmianyButton.Visible = false;
             this.ZapiszZmianyButton.Click += new System.EventHandler(this.SaveChangesButtonClick);
             // 
-            // EdycjaCzasuPicker
-            // 
-            this.EdycjaCzasuPicker.Enabled = false;
-            this.EdycjaCzasuPicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.EdycjaCzasuPicker.Location = new System.Drawing.Point(6, 65);
-            this.EdycjaCzasuPicker.Name = "EdycjaCzasuPicker";
-            this.EdycjaCzasuPicker.ShowUpDown = true;
-            this.EdycjaCzasuPicker.Size = new System.Drawing.Size(94, 20);
-            this.EdycjaCzasuPicker.TabIndex = 4;
-            // 
             // EdycjaDatyPicker
             // 
             this.EdycjaDatyPicker.Enabled = false;
@@ -268,16 +246,23 @@
             this.EdytujFirme.Size = new System.Drawing.Size(306, 20);
             this.EdytujFirme.TabIndex = 0;
             // 
-            // EditEventButton
+            // EdytujFaktureButton
             // 
             this.EdytujFaktureButton.Enabled = false;
             this.EdytujFaktureButton.Location = new System.Drawing.Point(156, 95);
-            this.EdytujFaktureButton.Name = "EditEventButton";
+            this.EdytujFaktureButton.Name = "EdytujFaktureButton";
             this.EdytujFaktureButton.Size = new System.Drawing.Size(75, 23);
             this.EdytujFaktureButton.TabIndex = 2;
             this.EdytujFaktureButton.Text = "Edytuj";
             this.EdytujFaktureButton.UseVisualStyleBackColor = true;
             this.EdytujFaktureButton.Click += new System.EventHandler(this.EdytujFaktureButtonClick);
+            // 
+            // EdycjaKwotyTextBox
+            // 
+            this.EdycjaKwotyTextBox.Location = new System.Drawing.Point(6, 65);
+            this.EdycjaKwotyTextBox.Name = "EdycjaKwotyTextBox";
+            this.EdycjaKwotyTextBox.Size = new System.Drawing.Size(100, 20);
+            this.EdycjaKwotyTextBox.TabIndex = 7;
             // 
             // KalendarzFakturWindow
             // 
@@ -304,6 +289,7 @@
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
 
@@ -318,15 +304,14 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Firma;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataNa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CzasNa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CzasDo;
-        private System.Windows.Forms.DateTimePicker EdycjaCzasuPicker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kwota;
         private System.Windows.Forms.DateTimePicker EdycjaDatyPicker;
         private System.Windows.Forms.Button EdytujFaktureButton;
         private System.Windows.Forms.Button UsunFaktureButton;
         private System.Windows.Forms.TextBox EdytujFirme;
         private System.Windows.Forms.Button ZapiszZmianyButton;
         private System.Windows.Forms.Button AnulujEdycjeButton;
+        private System.Windows.Forms.TextBox EdycjaKwotyTextBox;
     }
 }
 
