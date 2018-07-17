@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -284,7 +285,39 @@ namespace KalendarzFaktur
 
         private void EksprotujFaktury()
         {
-            MessageBox.Show("Ta funkcjonalność nie jest jeszcze dostępna!");
+            var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
+            SaveFileDialog savefile = new SaveFileDialog();
+            savefile.FileName = "Paxer_faktury_" + DateTime.Today.ToString() + ".xls";
+            savefile.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            if (faktury.Count() > 0)
+            {
+                if (savefile.ShowDialog() == DialogResult.OK)
+                {
+                    //using (StreamWriter sw = new StreamWriter(savefile.FileName))
+                    //    sw.WriteLine("Hello World!");
+                    StreamWriter wr = new StreamWriter(savefile.FileName);
+                    wr.Write("NAZWA FIRMY" + "\t");
+                    wr.Write("DATA" + "\t");
+                    wr.Write("KWOTA" + "\t");
+
+                    wr.WriteLine();
+
+                    //write rows to excel file
+                    foreach(WyswietlFakture fkt in faktury)
+                    {
+                        wr.Write(fkt.Firma + "\t");
+                        wr.Write(fkt.Data + "\t");
+                        wr.Write(fkt.Kwota + " zł"+ "\t");
+                        wr.WriteLine();
+                    }
+                    wr.Close();
+                    MessageBox.Show(this, "Dane zostały zapisane do formatu Excel w pliku " + savefile.FileName, "Sukces, zapisano", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, "Brak faktur do wyeksprotowania, najpierw dodaj jakąś fakturę", "Nie mogę eksprotować pliku", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         void ClickPanelaFaktur(object sender, EventArgs e)
