@@ -24,7 +24,7 @@ namespace KalendarzFaktur
         {
             var data = NowaDataFakturyPicker.Value;
             double kwota = Convert.ToDouble(kwotaTextBox.Text);
-            if(Convert.ToInt32(kwotaTextBox.Text) < 0)
+            if(Convert.ToDouble(kwotaTextBox.Text) < 0)
             {
                 MessageBox.Show(_wpiszPoprawnaKwote);
             }
