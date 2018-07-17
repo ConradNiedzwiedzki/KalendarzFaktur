@@ -46,7 +46,7 @@ namespace KalendarzFaktur
 
         string PobierzLadnaDate(DateTime data)
         {
-            return data.Month + "/" + data.Day + "/" + (data.Year - 2000);
+            return data.Day + "/" + data.Month + "/" + data.Year;
         }
 
         string PobierzLadnaKwote(double kwota)

@@ -65,6 +65,7 @@ namespace KalendarzFaktur
             }
             kalendarzMiesiac.UpdateBoldedDates();
         }
+
         public void AktualizujFirmyWComboBoxEdycji()
         {
             var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
@@ -73,7 +74,6 @@ namespace KalendarzFaktur
                 EdytujFirme.Items.Add(wyswFakt.Firma);
             }
         }
-
 
         public void ZaktualizujTabeleKalendarzaFaktur(bool poleZedytowane)
         {
@@ -287,7 +287,7 @@ namespace KalendarzFaktur
         {
             var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
             SaveFileDialog savefile = new SaveFileDialog();
-            savefile.FileName = "Paxer_faktury_" + DateTime.Today.ToString() + ".xls";
+            savefile.FileName = "Paxer_faktury_" + DateTime.Today.Month.ToString() + "-" + DateTime.Today.Day.ToString() + "-" + DateTime.Today.Year.ToString() + ".xls";
             savefile.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
             if (faktury.Count() > 0)
             {
@@ -307,7 +307,7 @@ namespace KalendarzFaktur
                     {
                         wr.Write(fkt.Firma + "\t");
                         wr.Write(fkt.Data + "\t");
-                        wr.Write(fkt.Kwota + " zł"+ "\t");
+                        wr.Write(fkt.Kwota + "\t");
                         wr.WriteLine();
                     }
                     wr.Close();
