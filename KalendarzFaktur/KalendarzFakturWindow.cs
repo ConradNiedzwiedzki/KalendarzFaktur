@@ -66,10 +66,6 @@ namespace KalendarzFaktur
         public void ZaktualizujTabeleKalendarzaFaktur(bool poleZedytowane)
         {
             int liczbaPoprzednichFaktur = TabelaFaktur.RowCount;
-            if (poleZedytowane == false)
-            {
-                poleZedytowane = true;
-            }
             var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
             var posortowane = faktury.OrderBy(fkt => fkt.DateTimeFaktury).ToArray();
             TabelaFaktur.RowCount = posortowane.Length;
