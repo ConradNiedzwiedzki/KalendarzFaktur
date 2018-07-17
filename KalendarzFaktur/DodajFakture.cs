@@ -16,7 +16,7 @@ namespace KalendarzFaktur
             InitializeComponent();
             _kalendarzFaktur = kalendarzFaktur;
             _kalendarzFakturForm = kalendarzFakturForm;
-            FirmaTextBox.Text = _wpiszNazweFirmy;
+            FirmaCombox.Text = _wpiszNazweFirmy;
             this.ShowDialog();
         }
 
@@ -30,7 +30,7 @@ namespace KalendarzFaktur
             }
 
             var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
-            _kalendarzFaktur.DodajFakture(FirmaTextBox.Text, dateTimeFaktury, kwota);
+            _kalendarzFaktur.DodajFakture(FirmaCombox.Text, dateTimeFaktury, kwota);
             _kalendarzFakturForm.Invoke(new Action(() => _kalendarzFakturForm.ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true)));
             _kalendarzFakturForm.Invoke(new Action(_kalendarzFakturForm.AktualizujKalendarz));
             this.Close();
@@ -38,15 +38,15 @@ namespace KalendarzFaktur
 
         void TextBoxFirmyMouseDown(object sender, MouseEventArgs e)
         {
-            if (FirmaTextBox.Text.Equals(_wpiszNazweFirmy))
+            if (FirmaCombox.Text.Equals(_wpiszNazweFirmy))
             {
-                FirmaTextBox.Text = "";
+                FirmaCombox.Text = "";
             }
         }
 
         void TextBoxFirmyTextChanged(object sender, EventArgs e)
         {
-            if (!FirmaTextBox.Text.Equals(_wpiszNazweFirmy) && !FirmaTextBox.Text.Equals(""))
+            if (!FirmaCombox.Text.Equals(_wpiszNazweFirmy) && !FirmaCombox.Text.Equals(""))
             {
                 DodajFaktureButton.Enabled = true;
             }

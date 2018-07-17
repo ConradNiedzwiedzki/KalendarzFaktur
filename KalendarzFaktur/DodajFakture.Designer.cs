@@ -28,23 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.FirmaTextBox = new System.Windows.Forms.TextBox();
             this.NowaDataFakturyPicker = new System.Windows.Forms.DateTimePicker();
             this.DodajFaktureButton = new System.Windows.Forms.Button();
             this.kwotaTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.FirmaCombox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // FirmaTextBox
-            // 
-            this.FirmaTextBox.Location = new System.Drawing.Point(10, 25);
-            this.FirmaTextBox.Name = "FirmaTextBox";
-            this.FirmaTextBox.Size = new System.Drawing.Size(300, 20);
-            this.FirmaTextBox.TabIndex = 0;
-            this.FirmaTextBox.TextChanged += new System.EventHandler(this.TextBoxFirmyTextChanged);
-            this.FirmaTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextBoxFirmyMouseDown);
             // 
             // NowaDataFakturyPicker
             // 
@@ -97,18 +88,26 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Nazwa firmy do faktury:";
             // 
+            // FirmaCombox
+            // 
+            this.FirmaCombox.FormattingEnabled = true;
+            this.FirmaCombox.Location = new System.Drawing.Point(12, 26);
+            this.FirmaCombox.Name = "FirmaCombox";
+            this.FirmaCombox.Size = new System.Drawing.Size(298, 21);
+            this.FirmaCombox.TabIndex = 8;
+            // 
             // DodajFakture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 125);
+            this.Controls.Add(this.FirmaCombox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.kwotaTextBox);
             this.Controls.Add(this.DodajFaktureButton);
             this.Controls.Add(this.NowaDataFakturyPicker);
-            this.Controls.Add(this.FirmaTextBox);
             this.Name = "DodajFakture";
             this.Text = "Dodaj fakturę";
             this.ResumeLayout(false);
@@ -117,13 +116,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox FirmaTextBox;
         private System.Windows.Forms.DateTimePicker NowaDataFakturyPicker;
         private System.Windows.Forms.Button DodajFaktureButton;
         private System.Windows.Forms.TextBox kwotaTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label dataLabel;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox FirmaCombox;
     }
 }
