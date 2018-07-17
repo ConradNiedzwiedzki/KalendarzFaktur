@@ -6,7 +6,7 @@ namespace KalendarzFaktur
     public partial class DodajFakture : Form
     {
         const string _wpiszNazweFirmy = "Wpisz nazwę firmy...";
-        const string _wpiszDateZPrzyszlosci = "Musisz wpisać datę i musi być z przyszłości";
+        const string _wpiszPoprawnaKwote = "Musisz wpisać poprawną kwotę (w formacie 'XXXXX,XX', bez zer i większą od zera)";
 
         readonly KalendarzFaktur _kalendarzFaktur;
         readonly KalendarzFakturWindow _kalendarzFakturForm;
@@ -16,24 +16,22 @@ namespace KalendarzFaktur
             InitializeComponent();
             _kalendarzFaktur = kalendarzFaktur;
             _kalendarzFakturForm = kalendarzFakturForm;
-            FirmaTextBox.Text = _wpiszNazweFirmy;
-            NowaDataFakturyPicker.MinDate = DateTime.Now;
-
+            FirmaCombox.Text = _wpiszNazweFirmy;
+            AktualizujFirmyWComboBoxDodawania();
             this.ShowDialog();
         }
 
         void DodajFaktureButtonClicked(object sender, EventArgs e)
         {
             var data = NowaDataFakturyPicker.Value;
-            var czas = NowyCzasFakturyPicker.Value;
-
-            var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day, czas.Hour, czas.Minute, czas.Second);
-            if (dateTimeFaktury < DateTime.Now)
+            double kwota = Convert.ToDouble(kwotaTextBox.Text);
+            if(Convert.ToDouble(kwotaTextBox.Text) < 0)
             {
-                MessageBox.Show(_wpiszDateZPrzyszlosci);
-                return;
+                MessageBox.Show(_wpiszPoprawnaKwote);
             }
-            _kalendarzFaktur.DodajFakture(FirmaTextBox.Text, dateTimeFaktury);
+
+            var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
+            _kalendarzFaktur.DodajFakture(FirmaCombox.Text, dateTimeFaktury, kwota);
             _kalendarzFakturForm.Invoke(new Action(() => _kalendarzFakturForm.ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true)));
             _kalendarzFakturForm.Invoke(new Action(_kalendarzFakturForm.AktualizujKalendarz));
             this.Close();
@@ -41,21 +39,30 @@ namespace KalendarzFaktur
 
         void TextBoxFirmyMouseDown(object sender, MouseEventArgs e)
         {
-            if (FirmaTextBox.Text.Equals(_wpiszNazweFirmy))
+            if (FirmaCombox.Text.Equals(_wpiszNazweFirmy))
             {
-                FirmaTextBox.Text = "";
+                FirmaCombox.Text = "";
             }
         }
 
         void TextBoxFirmyTextChanged(object sender, EventArgs e)
         {
-            if (!FirmaTextBox.Text.Equals(_wpiszNazweFirmy) && !FirmaTextBox.Text.Equals(""))
+            if (!FirmaCombox.Text.Equals(_wpiszNazweFirmy) && !FirmaCombox.Text.Equals(""))
             {
                 DodajFaktureButton.Enabled = true;
             }
             else
             {
                 DodajFaktureButton.Enabled = false;
+            }
+        }
+
+        public void AktualizujFirmyWComboBoxDodawania()
+        {
+            var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
+            foreach (WyswietlFakture wyswFakt in faktury)
+            {
+                FirmaCombox.Items.Add(wyswFakt.Firma);
             }
         }
     }

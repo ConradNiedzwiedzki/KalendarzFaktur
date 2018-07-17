@@ -24,39 +24,18 @@ namespace KalendarzFaktur
             }
         }
 
-        public bool OdswiezAktywneFaktury()
-        {
-            bool fakturySiePrzedawnily = false;
-            foreach (var fkt in _faktury)
-            {
-                if (fkt.StracilaWaznosc)
-                    continue;
-
-                var teraz = DateTime.Now;
-                if (fkt.Data < teraz)
-                {
-                    fkt.StracilaWaznosc = true;
-                    fakturySiePrzedawnily = true;
-                }
-            }
-            return fakturySiePrzedawnily;
-        }
-
         public List<WyswietlFakture> PobierzAktywneFaktury()
         {
-            var aktywneFaktury = _faktury.Where(e => !e.StracilaWaznosc && !e.Anulowana).ToArray();
+            var aktywneFaktury = _faktury.Where(e => !e.Anulowana).ToArray();
             var wyswietlFaktury = new List<WyswietlFakture>(aktywneFaktury.Length);
             foreach (var @faktura in aktywneFaktury)
             {
                 var wyswietlFakture = new WyswietlFakture();
                 wyswietlFakture.Firma = @faktura.Firma;
 
-                wyswietlFakture.Kwota = PobierzLadnyCzas(@faktura.Data);
+                wyswietlFakture.Kwota = PobierzLadnaKwote(@faktura.Kwota);
                 wyswietlFakture.Data = PobierzLadnaDate(@faktura.Data);
 
-                var czasDoPrzedawnienia = @faktura.Data - DateTime.Now;
-                var czasDoPrzedawnieniaString = PobierzLadnaRozniceCzasu(czasDoPrzedawnienia);
-                wyswietlFakture.CzasDoPrzedawnienia = czasDoPrzedawnieniaString;
                 wyswietlFakture.DateTimeFaktury = @faktura.Data;
 
                 wyswietlFaktury.Add(wyswietlFakture);
@@ -64,45 +43,24 @@ namespace KalendarzFaktur
             return wyswietlFaktury;
         }
 
+
         string PobierzLadnaDate(DateTime data)
         {
-            return data.Month + "/" + data.Day + "/" + (data.Year - 2000);
+            return data.Day + "/" + data.Month + "/" + data.Year;
         }
 
-        string PobierzLadnyCzas(DateTime czas)
+        string PobierzLadnaKwote(double kwota)
         {
-            var godzina = czas.ToString("hh");
-            var minuta = czas.ToString("mm");
-            var brzask = czas.ToString("tt");
-            return godzina + ":" + minuta + " " + brzask;
-        }
-
-        string PobierzLadnaRozniceCzasu(TimeSpan roznica)
-        {
-            var wynik = "";
-            if (roznica.Days > 0){
-                wynik += roznica.Days + "d ";
-            }
-            if (roznica.Hours > 0){
-                wynik += roznica.Hours + "h ";
-            }
-            if (roznica.Minutes > 0){
-                wynik += roznica.Minutes + "m ";
-            }
-            wynik += roznica.Seconds + "s";
+            string wynik = kwota.ToString();
             return wynik;
         }
 
-        public void DodajFakture(string firma, DateTime czasNaFakturze)
+        public void DodajFakture(string firma, DateTime czasNaFakturze, double kwota)
         {
-            if (czasNaFakturze < DateTime.Now)
-            {
-                throw new Exception("Zrobiłeś coś głupiego, a mi nie chce się tego łapać");
-            }
             var nowaFaktura = new Faktura();
             nowaFaktura.Firma = firma;
             nowaFaktura.Data = czasNaFakturze;
-            nowaFaktura.StracilaWaznosc = false;
+            nowaFaktura.Kwota = kwota;
             nowaFaktura.Anulowana = false;
             _faktury.Add(nowaFaktura);
             ZapiszFaktury();
@@ -123,15 +81,16 @@ namespace KalendarzFaktur
             ZapiszFaktury();
         }
 
-        public void EdytujFakture(string obecnaFirma, DateTime obecnyCzas, string nowaFirma, DateTime nowyCzas)
+        public void EdytujFakture(string obecnaFirma, DateTime obecnyCzas, double obecnaKwota, string nowaFirma, DateTime nowyCzas, double nowaKwota)
         {
             bool znalezionoFakture = false;
             foreach (var @faktura in _faktury)
             {
-                if (@faktura.Firma.Equals(obecnaFirma) && @faktura.Data == obecnyCzas)
+                if (@faktura.Firma.Equals(obecnaFirma) && @faktura.Data == obecnyCzas && @faktura.Kwota.Equals(obecnaKwota))
                 {
                     @faktura.Firma = nowaFirma;
                     @faktura.Data = nowyCzas;
+                    @faktura.Kwota = nowaKwota;
                     znalezionoFakture = true;
                 }
             }
