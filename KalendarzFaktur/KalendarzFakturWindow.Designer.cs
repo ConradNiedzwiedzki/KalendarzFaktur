@@ -15,12 +15,10 @@
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KalendarzFakturWindow));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kalendarzMiesiac = new System.Windows.Forms.MonthCalendar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fakturyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -33,13 +31,16 @@
             this.DataNa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Kwota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.EdycjaKwotyTextBox = new System.Windows.Forms.TextBox();
             this.AnulujEdycjeButton = new System.Windows.Forms.Button();
             this.ZapiszZmianyButton = new System.Windows.Forms.Button();
             this.EdycjaDatyPicker = new System.Windows.Forms.DateTimePicker();
             this.UsunFaktureButton = new System.Windows.Forms.Button();
             this.EdytujFirme = new System.Windows.Forms.TextBox();
             this.EdytujFaktureButton = new System.Windows.Forms.Button();
-            this.EdycjaKwotyTextBox = new System.Windows.Forms.TextBox();
+            this.nazwaFirmyLabel = new System.Windows.Forms.Label();
+            this.dataFakturyLabel = new System.Windows.Forms.Label();
+            this.kwotaLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.FakturyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabelaFaktur)).BeginInit();
@@ -97,6 +98,9 @@
             // FakturyPanel
             // 
             this.FakturyPanel.AutoScroll = true;
+            this.FakturyPanel.Controls.Add(this.kwotaLabel);
+            this.FakturyPanel.Controls.Add(this.dataFakturyLabel);
+            this.FakturyPanel.Controls.Add(this.nazwaFirmyLabel);
             this.FakturyPanel.Controls.Add(this.TabelaFaktur);
             this.FakturyPanel.Location = new System.Drawing.Point(17, 199);
             this.FakturyPanel.Name = "FakturyPanel";
@@ -110,45 +114,45 @@
             this.TabelaFaktur.AllowUserToDeleteRows = false;
             this.TabelaFaktur.AllowUserToResizeColumns = false;
             this.TabelaFaktur.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.TabelaFaktur.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            this.TabelaFaktur.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.TabelaFaktur.BackgroundColor = System.Drawing.SystemColors.Control;
             this.TabelaFaktur.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.YellowGreen;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TabelaFaktur.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.YellowGreen;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TabelaFaktur.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.TabelaFaktur.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TabelaFaktur.ColumnHeadersVisible = false;
             this.TabelaFaktur.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Firma,
             this.DataNa,
             this.Kwota});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.TabelaFaktur.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TabelaFaktur.DefaultCellStyle = dataGridViewCellStyle11;
             this.TabelaFaktur.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.TabelaFaktur.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.TabelaFaktur.Location = new System.Drawing.Point(2, 0);
+            this.TabelaFaktur.Location = new System.Drawing.Point(2, 26);
             this.TabelaFaktur.MultiSelect = false;
             this.TabelaFaktur.Name = "TabelaFaktur";
             this.TabelaFaktur.ReadOnly = true;
             this.TabelaFaktur.RowHeadersVisible = false;
             this.TabelaFaktur.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.TabelaFaktur.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            this.TabelaFaktur.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.TabelaFaktur.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.TabelaFaktur.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TabelaFaktur.Size = new System.Drawing.Size(596, 362);
+            this.TabelaFaktur.Size = new System.Drawing.Size(596, 336);
             this.TabelaFaktur.TabIndex = 4;
             this.TabelaFaktur.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ClickWKomorkeTabeliFaktur);
             // 
@@ -156,7 +160,7 @@
             // 
             this.Firma.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Firma.HeaderText = "Firma";
-            this.Firma.MinimumWidth = 220;
+            this.Firma.MinimumWidth = 100;
             this.Firma.Name = "Firma";
             this.Firma.ReadOnly = true;
             this.Firma.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -165,22 +169,20 @@
             // DataNa
             // 
             this.DataNa.HeaderText = "Data";
-            this.DataNa.MinimumWidth = 70;
+            this.DataNa.MinimumWidth = 100;
             this.DataNa.Name = "DataNa";
             this.DataNa.ReadOnly = true;
             this.DataNa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DataNa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.DataNa.Width = 70;
             // 
-            // CzasNa
+            // Kwota
             // 
             this.Kwota.HeaderText = "Kwota";
-            this.Kwota.MinimumWidth = 60;
+            this.Kwota.MinimumWidth = 100;
             this.Kwota.Name = "Kwota";
             this.Kwota.ReadOnly = true;
             this.Kwota.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Kwota.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Kwota.Width = 60;
             // 
             // groupBox1
             // 
@@ -196,6 +198,13 @@
             this.groupBox1.Size = new System.Drawing.Size(330, 168);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
+            // 
+            // EdycjaKwotyTextBox
+            // 
+            this.EdycjaKwotyTextBox.Location = new System.Drawing.Point(6, 65);
+            this.EdycjaKwotyTextBox.Name = "EdycjaKwotyTextBox";
+            this.EdycjaKwotyTextBox.Size = new System.Drawing.Size(100, 20);
+            this.EdycjaKwotyTextBox.TabIndex = 7;
             // 
             // AnulujEdycjeButton
             // 
@@ -257,12 +266,33 @@
             this.EdytujFaktureButton.UseVisualStyleBackColor = true;
             this.EdytujFaktureButton.Click += new System.EventHandler(this.EdytujFaktureButtonClick);
             // 
-            // EdycjaKwotyTextBox
+            // nazwaFirmyLabel
             // 
-            this.EdycjaKwotyTextBox.Location = new System.Drawing.Point(6, 65);
-            this.EdycjaKwotyTextBox.Name = "EdycjaKwotyTextBox";
-            this.EdycjaKwotyTextBox.Size = new System.Drawing.Size(100, 20);
-            this.EdycjaKwotyTextBox.TabIndex = 7;
+            this.nazwaFirmyLabel.AutoSize = true;
+            this.nazwaFirmyLabel.Location = new System.Drawing.Point(3, 10);
+            this.nazwaFirmyLabel.Name = "nazwaFirmyLabel";
+            this.nazwaFirmyLabel.Size = new System.Drawing.Size(67, 13);
+            this.nazwaFirmyLabel.TabIndex = 5;
+            this.nazwaFirmyLabel.Text = "Nazwa firmy:";
+            this.nazwaFirmyLabel.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // dataFakturyLabel
+            // 
+            this.dataFakturyLabel.AutoSize = true;
+            this.dataFakturyLabel.Location = new System.Drawing.Point(398, 10);
+            this.dataFakturyLabel.Name = "dataFakturyLabel";
+            this.dataFakturyLabel.Size = new System.Drawing.Size(68, 13);
+            this.dataFakturyLabel.TabIndex = 6;
+            this.dataFakturyLabel.Text = "Data faktury:";
+            // 
+            // kwotaLabel
+            // 
+            this.kwotaLabel.AutoSize = true;
+            this.kwotaLabel.Location = new System.Drawing.Point(499, 10);
+            this.kwotaLabel.Name = "kwotaLabel";
+            this.kwotaLabel.Size = new System.Drawing.Size(75, 13);
+            this.kwotaLabel.TabIndex = 7;
+            this.kwotaLabel.Text = "Kwota faktury:";
             // 
             // KalendarzFakturWindow
             // 
@@ -284,6 +314,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.FakturyPanel.ResumeLayout(false);
+            this.FakturyPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabelaFaktur)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -312,6 +343,9 @@
         private System.Windows.Forms.Button ZapiszZmianyButton;
         private System.Windows.Forms.Button AnulujEdycjeButton;
         private System.Windows.Forms.TextBox EdycjaKwotyTextBox;
+        private System.Windows.Forms.Label nazwaFirmyLabel;
+        private System.Windows.Forms.Label kwotaLabel;
+        private System.Windows.Forms.Label dataFakturyLabel;
     }
 }
 

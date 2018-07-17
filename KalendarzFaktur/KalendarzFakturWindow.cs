@@ -94,7 +94,6 @@ namespace KalendarzFaktur
                 TabelaFaktur[0, i].Value = posortowane[i].Firma;
                 TabelaFaktur[1, i].Value = posortowane[i].Data;
                 TabelaFaktur[2, i].Value = posortowane[i].Kwota;
-                TabelaFaktur[2, i].Value = posortowane[i].DateTimeFaktury;
             }
 
             if (poleZedytowane)
@@ -293,6 +292,11 @@ namespace KalendarzFaktur
         void AddEventToolStripMenuItemClick(object sender, EventArgs e)
         {
             _dodajFaktureForm = new DodajFakture(_kalendarzFaktur, this);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
