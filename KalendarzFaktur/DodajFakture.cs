@@ -17,6 +17,7 @@ namespace KalendarzFaktur
             _kalendarzFaktur = kalendarzFaktur;
             _kalendarzFakturForm = kalendarzFakturForm;
             FirmaCombox.Text = _wpiszNazweFirmy;
+            AktualizujFirmyWComboBoxDodawania();
             this.ShowDialog();
         }
 
@@ -53,6 +54,15 @@ namespace KalendarzFaktur
             else
             {
                 DodajFaktureButton.Enabled = false;
+            }
+        }
+
+        public void AktualizujFirmyWComboBoxDodawania()
+        {
+            var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
+            foreach (WyswietlFakture wyswFakt in faktury)
+            {
+                FirmaCombox.Items.Add(wyswFakt.Firma);
             }
         }
     }

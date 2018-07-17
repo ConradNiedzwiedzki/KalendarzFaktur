@@ -34,6 +34,7 @@
             this.DataNa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Kwota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EdytujFirme = new System.Windows.Forms.ComboBox();
             this.EdycjaKwotyTextBox = new System.Windows.Forms.TextBox();
             this.AnulujEdycjeButton = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.EdycjaDatyPicker = new System.Windows.Forms.DateTimePicker();
             this.UsunFaktureButton = new System.Windows.Forms.Button();
             this.EdytujFaktureButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.FakturyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabelaFaktur)).BeginInit();
@@ -85,10 +85,10 @@
             // 
             // eksprotujFakturyToolStripMenuItem
             // 
-            this.eksprotujFakturyToolStripMenuItem.Enabled = false;
             this.eksprotujFakturyToolStripMenuItem.Name = "eksprotujFakturyToolStripMenuItem";
             this.eksprotujFakturyToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.eksprotujFakturyToolStripMenuItem.Text = "Eksportuj faktury";
+            this.eksprotujFakturyToolStripMenuItem.Click += new System.EventHandler(this.eksprotujFakturyToolStripMenuItem_Click);
             // 
             // opcjeToolStripMenuItem
             // 
@@ -115,9 +115,9 @@
             this.kwotaLabel.AutoSize = true;
             this.kwotaLabel.Location = new System.Drawing.Point(499, 10);
             this.kwotaLabel.Name = "kwotaLabel";
-            this.kwotaLabel.Size = new System.Drawing.Size(75, 13);
+            this.kwotaLabel.Size = new System.Drawing.Size(93, 13);
             this.kwotaLabel.TabIndex = 7;
-            this.kwotaLabel.Text = "Kwota faktury:";
+            this.kwotaLabel.Text = "Kwota faktury (zł):";
             // 
             // dataFakturyLabel
             // 
@@ -230,6 +230,15 @@
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::KalendarzFaktur.Properties.Resources.paxer;
+            this.pictureBox1.Location = new System.Drawing.Point(62, 17);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(200, 60);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
             // EdytujFirme
             // 
             this.EdytujFirme.FormattingEnabled = true;
@@ -296,15 +305,6 @@
             this.EdytujFaktureButton.Text = "Edytuj";
             this.EdytujFaktureButton.UseVisualStyleBackColor = true;
             this.EdytujFaktureButton.Click += new System.EventHandler(this.EdytujFaktureButtonClick);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::KalendarzFaktur.Properties.Resources.paxer;
-            this.pictureBox1.Location = new System.Drawing.Point(62, 17);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 60);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
             // 
             // KalendarzFakturWindow
             // 

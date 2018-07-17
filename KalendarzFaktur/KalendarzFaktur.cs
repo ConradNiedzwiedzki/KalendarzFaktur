@@ -43,6 +43,7 @@ namespace KalendarzFaktur
             return wyswietlFaktury;
         }
 
+
         string PobierzLadnaDate(DateTime data)
         {
             return data.Month + "/" + data.Day + "/" + (data.Year - 2000);

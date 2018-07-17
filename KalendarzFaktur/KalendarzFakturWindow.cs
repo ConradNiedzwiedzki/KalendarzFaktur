@@ -31,6 +31,7 @@ namespace KalendarzFaktur
 
             ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
             AktualizujKalendarz();
+            AktualizujFirmyWComboBoxEdycji();
 
             WyczyscSzczegolyFaktury();
 
@@ -44,6 +45,7 @@ namespace KalendarzFaktur
             _stylDomyslny.BackColor = Color.LightGreen;
             _stylDomyslny.SelectionBackColor = Color.LightGreen;
             TabelaFaktur.ClearSelection();
+
         }
 
         protected override void OnShown(EventArgs e)
@@ -62,6 +64,15 @@ namespace KalendarzFaktur
             }
             kalendarzMiesiac.UpdateBoldedDates();
         }
+        public void AktualizujFirmyWComboBoxEdycji()
+        {
+            var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
+            foreach (WyswietlFakture wyswFakt in faktury)
+            {
+                EdytujFirme.Items.Add(wyswFakt.Firma);
+            }
+        }
+
 
         public void ZaktualizujTabeleKalendarzaFaktur(bool poleZedytowane)
         {
@@ -271,6 +282,11 @@ namespace KalendarzFaktur
             }
         }
 
+        private void EksprotujFaktury()
+        {
+            MessageBox.Show("Ta funkcjonalność nie jest jeszcze dostępna!");
+        }
+
         void ClickPanelaFaktur(object sender, EventArgs e)
         {
             TabelaFaktur.ClearSelection();
@@ -297,6 +313,11 @@ namespace KalendarzFaktur
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void eksprotujFakturyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EksprotujFaktury();
         }
     }
 }
