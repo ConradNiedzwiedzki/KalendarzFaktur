@@ -90,11 +90,15 @@
             // 
             // FirmaCombox
             // 
+            this.FirmaCombox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.FirmaCombox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.FirmaCombox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FirmaCombox.FormattingEnabled = true;
             this.FirmaCombox.Location = new System.Drawing.Point(12, 26);
             this.FirmaCombox.Name = "FirmaCombox";
             this.FirmaCombox.Size = new System.Drawing.Size(298, 21);
             this.FirmaCombox.TabIndex = 8;
+            this.FirmaCombox.TextChanged += new System.EventHandler(this.FirmaCombobox_TextChanged);
             // 
             // DodajFakture
             // 
