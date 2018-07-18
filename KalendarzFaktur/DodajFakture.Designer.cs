@@ -98,7 +98,6 @@
             this.FirmaCombox.Name = "FirmaCombox";
             this.FirmaCombox.Size = new System.Drawing.Size(298, 21);
             this.FirmaCombox.TabIndex = 8;
-            this.FirmaCombox.TextChanged += new System.EventHandler(this.FirmaCombobox_TextChanged);
             // 
             // DodajFakture
             // 
