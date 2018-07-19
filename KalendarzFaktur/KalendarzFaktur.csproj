@@ -38,6 +38,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\paxer_icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -75,6 +78,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsunFirme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsunFirme.Designer.cs">
+      <DependentUpon>UsunFirme.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DodajFakture.resx">
       <DependentUpon>DodajFakture.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,6 +100,10 @@
     <EmbeddedResource Include="KalendarzFakturWindow.resx">
       <DependentUpon>KalendarzFakturWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UsunFirme.resx">
+      <DependentUpon>UsunFirme.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
