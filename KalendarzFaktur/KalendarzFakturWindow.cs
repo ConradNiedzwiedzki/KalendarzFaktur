@@ -22,7 +22,6 @@ namespace KalendarzFaktur
         UsunFirme _usunFirmeForm;
         Task _taskAktulizacjiPola;
         bool _zabijtaskAktualizacjiPola;
-        const string _sciezkaDoBazyPodpowiedziFirm = "firmy.json";
 
         public KalendarzFakturWindow()
         {
@@ -299,6 +298,7 @@ namespace KalendarzFaktur
         {
             _zabijtaskAktualizacjiPola = true;
             _taskAktulizacjiPola.Wait();
+            
         }
 
         void ZamykanieFormKalendarzaFaktur(object sender, FormClosingEventArgs e)
