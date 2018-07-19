@@ -281,7 +281,7 @@
             this.ZapiszZmianyButton.Text = "Zapisz zmiany";
             this.ZapiszZmianyButton.UseVisualStyleBackColor = true;
             this.ZapiszZmianyButton.Visible = false;
-            this.ZapiszZmianyButton.Click += new System.EventHandler(this.SaveChangesButtonClick);
+            this.ZapiszZmianyButton.Click += new System.EventHandler(this.ZapiszZmianyButtonClick);
             // 
             // EdycjaDatyPicker
             // 

@@ -233,21 +233,56 @@ namespace KalendarzFaktur
             }
         }
 
-        void SaveChangesButtonClick(object sender, EventArgs e)
+        void ZapiszZmianyButtonClick(object sender, EventArgs e)
         {
-            var data = EdycjaDatyPicker.Value;
-            var nowaKwota = Convert.ToDouble(EdycjaKwotyTextBox.Text);
-            var nowaFirma = EdytujFirme.Text;
+            if (EdycjaKwotyTextBox.Text == String.Empty)
+            {
+                MessageBox.Show("Zapomniałeś o wpisaniu kwoty!");
+            }
+            else if (!ZawieraTylkoCyfry(EdycjaKwotyTextBox.Text))
+            {
+                MessageBox.Show("Kwota może zawierać tylko nieujemne cyfry i przecinek! (np. 123,45)");
+            }
+            else
+            {
+                if (Convert.ToDouble(EdycjaKwotyTextBox.Text) < 0)
+                {
+                    MessageBox.Show("Kwota nie może być mniejsza od zera!");
+                }
+                else if (EdytujFirme.Text == String.Empty)
+                {
+                    MessageBox.Show("Wpisz lub wybierz nazwę firmy!");
+                }
+                else
+                {
+                    var data = EdycjaDatyPicker.Value;
+                    var nowaKwota = Convert.ToDouble(EdycjaKwotyTextBox.Text);
+                    var nowaFirma = EdytujFirme.Text;
 
-            var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
-            var tag = (int)TabelaFaktur.SelectedCells[0].Tag;
-            var poprzedniaFirma = _przyciskDoWyszukiwaniaFaktur[tag].Item1;
-            var poprzedniCzas = _przyciskDoWyszukiwaniaFaktur[tag].Item2;
-            var poprzedniaKwota = _przyciskDoWyszukiwaniaFaktur[tag].Item3;
-            _kalendarzFaktur.EdytujFakture(poprzedniaFirma, poprzedniCzas, poprzedniaKwota, nowaFirma, dateTimeFaktury, nowaKwota);
-            WylaczPolaEdycji();
-            ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
-            AktualizujKalendarz();
+                    var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
+                    var tag = (int)TabelaFaktur.SelectedCells[0].Tag;
+                    var poprzedniaFirma = _przyciskDoWyszukiwaniaFaktur[tag].Item1;
+                    var poprzedniCzas = _przyciskDoWyszukiwaniaFaktur[tag].Item2;
+                    var poprzedniaKwota = _przyciskDoWyszukiwaniaFaktur[tag].Item3;
+                    _kalendarzFaktur.EdytujFakture(poprzedniaFirma, poprzedniCzas, poprzedniaKwota, nowaFirma, dateTimeFaktury, nowaKwota);
+                    WylaczPolaEdycji();
+                    ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
+                    AktualizujKalendarz();
+                }
+            }
+        }
+
+        bool ZawieraTylkoCyfry(string tekst)
+        {
+            foreach (char znak in tekst)
+            {
+                if (znak < '0' || znak > '9')
+                {
+                    if (znak != ',')
+                        return false;
+                }
+            }
+            return true;
         }
 
         void AnulujEdycjeButtonClick(object sender, EventArgs e)
