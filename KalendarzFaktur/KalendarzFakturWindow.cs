@@ -47,8 +47,8 @@ namespace KalendarzFaktur
             _stylDomyslny.BackColor = Color.LightGreen;
             _stylDomyslny.SelectionBackColor = Color.LightGreen;
             _stylWygaszenia = new DataGridViewCellStyle();
-            _stylWygaszenia.BackColor = Color.Gray;
-            _stylWygaszenia.SelectionBackColor = Color.Gray;
+            _stylWygaszenia.BackColor = Color.LightGray;
+            _stylWygaszenia.SelectionBackColor = Color.LightGray;
             TabelaFaktur.ClearSelection();
 
         }
@@ -89,13 +89,6 @@ namespace KalendarzFaktur
             {
                 var daysRemaining = (posortowane[i].DateTimeFaktury - DateTime.Now).Days;
 
-                if(daysRemaining < 0)
-                {
-                    TabelaFaktur[0, i].Style = _stylWygaszenia;
-                    TabelaFaktur[1, i].Style = _stylWygaszenia;
-                    TabelaFaktur[2, i].Style = _stylWygaszenia;
-                }
-
                 if (daysRemaining >= 7)
                 {
                     TabelaFaktur[0, i].Style = _stylDomyslny;
@@ -114,6 +107,14 @@ namespace KalendarzFaktur
                     TabelaFaktur[1, i].Style = _stylPilny;
                     TabelaFaktur[2, i].Style = _stylPilny;
                 }
+
+                if (daysRemaining < 0)
+                {
+                    TabelaFaktur[0, i].Style = _stylWygaszenia;
+                    TabelaFaktur[1, i].Style = _stylWygaszenia;
+                    TabelaFaktur[2, i].Style = _stylWygaszenia;
+                }
+
                 TabelaFaktur[0, i].Value = posortowane[i].Firma;
                 TabelaFaktur[1, i].Value = posortowane[i].Data;
                 TabelaFaktur[2, i].Value = posortowane[i].Kwota;
