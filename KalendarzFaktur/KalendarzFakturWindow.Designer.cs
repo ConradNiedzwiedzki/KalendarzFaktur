@@ -82,7 +82,7 @@
             this.dodajFaktureToolStripMenuItem.Name = "dodajFaktureToolStripMenuItem";
             this.dodajFaktureToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.dodajFaktureToolStripMenuItem.Text = "Dodaj fakturę";
-            this.dodajFaktureToolStripMenuItem.Click += new System.EventHandler(this.AddEventToolStripMenuItemClick);
+            this.dodajFaktureToolStripMenuItem.Click += new System.EventHandler(this.dodajFaktureToolStripMenuItemClick);
             // 
             // eksprotujFakturyToolStripMenuItem
             // 
@@ -137,7 +137,6 @@
             this.nazwaFirmyLabel.Size = new System.Drawing.Size(67, 13);
             this.nazwaFirmyLabel.TabIndex = 5;
             this.nazwaFirmyLabel.Text = "Nazwa firmy:";
-            this.nazwaFirmyLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // TabelaFaktur
             // 

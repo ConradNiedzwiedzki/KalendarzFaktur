@@ -222,10 +222,10 @@ namespace KalendarzFaktur
         {
             var firmaFaktury = EdytujFirme.Text;
             var dataFaktury = EdycjaDatyPicker.Value;
-            var wynik = MessageBox.Show("Czy jesteś pewien, że chcesz anulować fakturę z " + firmaFaktury + "?!", "", MessageBoxButtons.YesNo);
+            var wynik = MessageBox.Show("Czy jesteś pewien, że chcesz usunąć fakturę z " + firmaFaktury + "?!", "", MessageBoxButtons.YesNo);
             if (wynik == DialogResult.Yes)
             {
-                _kalendarzFaktur.AnulujFakture(firmaFaktury, dataFaktury);
+                _kalendarzFaktur.UsunFakture(firmaFaktury, dataFaktury);
                 ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
                 AktualizujKalendarz();
                 TabelaFaktur.ClearSelection();
@@ -350,14 +350,9 @@ namespace KalendarzFaktur
             WyczyscSzczegolyFaktury();
         }
 
-        void AddEventToolStripMenuItemClick(object sender, EventArgs e)
+        void dodajFaktureToolStripMenuItemClick(object sender, EventArgs e)
         {
             _dodajFaktureForm = new DodajFakture(_kalendarzFaktur, this);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void eksprotujFakturyToolStripMenuItem_Click(object sender, EventArgs e)

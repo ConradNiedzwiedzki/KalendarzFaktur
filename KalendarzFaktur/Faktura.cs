@@ -6,7 +6,7 @@ namespace KalendarzFaktur
     {
         public string Firma;
         public DateTime Data;
-        public bool Anulowana;
+        public bool Usunieta;
         public double Kwota;
     }
 

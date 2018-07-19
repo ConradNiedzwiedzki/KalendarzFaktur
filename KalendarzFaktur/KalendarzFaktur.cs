@@ -26,7 +26,7 @@ namespace KalendarzFaktur
 
         public List<WyswietlFakture> PobierzAktywneFaktury()
         {
-            var aktywneFaktury = _faktury.Where(e => !e.Anulowana).ToArray();
+            var aktywneFaktury = _faktury.Where(e => !e.Usunieta).ToArray();
             var wyswietlFaktury = new List<WyswietlFakture>(aktywneFaktury.Length);
             foreach (var @faktura in aktywneFaktury)
             {
@@ -66,19 +66,19 @@ namespace KalendarzFaktur
             nowaFaktura.Firma = firma;
             nowaFaktura.Data = czasNaFakturze;
             nowaFaktura.Kwota = kwota;
-            nowaFaktura.Anulowana = false;
+            nowaFaktura.Usunieta = false;
             _faktury.Add(nowaFaktura);
             ZapiszFaktury();
         }
 
-        public void AnulujFakture(string firma, DateTime czas)
+        public void UsunFakture(string firma, DateTime czas)
         {
             bool znalezionoFakture = false;
             foreach (var @faktura in _faktury)
             {
                 if (@faktura.Firma.Equals(firma) && @faktura.Data == czas)
                 {
-                    @faktura.Anulowana = true;
+                    @faktura.Usunieta = true;
                     znalezionoFakture = true;
                 }
             }
@@ -105,8 +105,9 @@ namespace KalendarzFaktur
 
         void ZapiszFaktury()
         {
+            File.Delete(_sciezkaDoZapisanychFaktur);
             var streamWriter = new StreamWriter(_sciezkaDoZapisanychFaktur);
-            var serializowane = JsonConvert.SerializeObject(_faktury, Formatting.Indented);
+            var serializowane = JsonConvert.SerializeObject(_faktury.Where(e => !e.Usunieta).ToList(), Formatting.Indented);
             streamWriter.Write(serializowane);
             streamWriter.Close();
         }
