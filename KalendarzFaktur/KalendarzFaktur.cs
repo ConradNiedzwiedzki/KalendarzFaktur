@@ -43,6 +43,11 @@ namespace KalendarzFaktur
             return wyswietlFaktury;
         }
 
+        public List<string> PobierzFirmy()
+        {
+            throw new NotImplementedException();
+        }
+
 
         string PobierzLadnaDate(DateTime data)
         {

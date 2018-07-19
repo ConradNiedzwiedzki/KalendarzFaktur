@@ -17,6 +17,7 @@ namespace KalendarzFaktur
         readonly KalendarzFaktur _kalendarzFaktur;
         readonly DataGridViewCellStyle _stylPilny;
         readonly DataGridViewCellStyle _stylOstrzezenia;
+        readonly DataGridViewCellStyle _stylWygaszenia;
         DodajFakture _dodajFaktureForm;
         Task _taskAktulizacjiPola;
         bool _zabijtaskAktualizacjiPola;
@@ -45,6 +46,9 @@ namespace KalendarzFaktur
             _stylDomyslny = new DataGridViewCellStyle();
             _stylDomyslny.BackColor = Color.LightGreen;
             _stylDomyslny.SelectionBackColor = Color.LightGreen;
+            _stylWygaszenia = new DataGridViewCellStyle();
+            _stylWygaszenia.BackColor = Color.Gray;
+            _stylWygaszenia.SelectionBackColor = Color.Gray;
             TabelaFaktur.ClearSelection();
 
         }
@@ -84,6 +88,13 @@ namespace KalendarzFaktur
             for (int i = 0; i < posortowane.Length; i++)
             {
                 var daysRemaining = (posortowane[i].DateTimeFaktury - DateTime.Now).Days;
+
+                if(daysRemaining < 0)
+                {
+                    TabelaFaktur[0, i].Style = _stylWygaszenia;
+                    TabelaFaktur[1, i].Style = _stylWygaszenia;
+                    TabelaFaktur[2, i].Style = _stylWygaszenia;
+                }
 
                 if (daysRemaining >= 7)
                 {
