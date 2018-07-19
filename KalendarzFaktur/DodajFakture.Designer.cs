@@ -90,6 +90,8 @@
             // 
             // FirmaCombox
             // 
+            this.FirmaCombox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.FirmaCombox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.FirmaCombox.FormattingEnabled = true;
             this.FirmaCombox.Location = new System.Drawing.Point(12, 26);
             this.FirmaCombox.Name = "FirmaCombox";
