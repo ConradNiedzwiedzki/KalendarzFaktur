@@ -11,13 +11,17 @@ namespace KalendarzFaktur
         [STAThread]
         static void Main()
         {
-            File.Decrypt(_sciezkaDoZapisanychFaktur);
-            File.Decrypt(_sciezkaDoBazyPodpowiedziFirm);
+            if (File.Exists(_sciezkaDoZapisanychFaktur))
+                File.Decrypt(_sciezkaDoZapisanychFaktur);
+            if (File.Exists(_sciezkaDoBazyPodpowiedziFirm))
+                File.Decrypt(_sciezkaDoBazyPodpowiedziFirm);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new KalendarzFakturWindow());
-            File.Encrypt(_sciezkaDoZapisanychFaktur);
-            File.Encrypt(_sciezkaDoBazyPodpowiedziFirm);
+            if (File.Exists(_sciezkaDoZapisanychFaktur))
+                File.Encrypt(_sciezkaDoZapisanychFaktur);
+            if (File.Exists(_sciezkaDoBazyPodpowiedziFirm))
+                File.Encrypt(_sciezkaDoBazyPodpowiedziFirm);
         }
     }
 }
