@@ -41,7 +41,7 @@
             // 
             this.nowaDataFakturyPicker.Location = new System.Drawing.Point(12, 69);
             this.nowaDataFakturyPicker.Name = "nowaDataFakturyPicker";
-            this.nowaDataFakturyPicker.Size = new System.Drawing.Size(200, 20);
+            this.nowaDataFakturyPicker.Size = new System.Drawing.Size(159, 20);
             this.nowaDataFakturyPicker.TabIndex = 1;
             // 
             // dodajFaktureButton
@@ -56,15 +56,15 @@
             // 
             // kwotaTextBox
             // 
-            this.kwotaTextBox.Location = new System.Drawing.Point(220, 69);
+            this.kwotaTextBox.Location = new System.Drawing.Point(177, 69);
             this.kwotaTextBox.Name = "kwotaTextBox";
-            this.kwotaTextBox.Size = new System.Drawing.Size(92, 20);
+            this.kwotaTextBox.Size = new System.Drawing.Size(135, 20);
             this.kwotaTextBox.TabIndex = 4;
             // 
             // kwotaLabel
             // 
             this.kwotaLabel.AutoSize = true;
-            this.kwotaLabel.Location = new System.Drawing.Point(217, 53);
+            this.kwotaLabel.Location = new System.Drawing.Point(174, 53);
             this.kwotaLabel.Name = "kwotaLabel";
             this.kwotaLabel.Size = new System.Drawing.Size(40, 13);
             this.kwotaLabel.TabIndex = 5;
@@ -88,13 +88,13 @@
             this.nazwaFirmyLabel.TabIndex = 7;
             this.nazwaFirmyLabel.Text = "Nazwa firmy do faktury:";
             // 
-            // firmaCombox
+            // firmaComboBox
             // 
             this.firmaComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.firmaComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.firmaComboBox.FormattingEnabled = true;
             this.firmaComboBox.Location = new System.Drawing.Point(12, 26);
-            this.firmaComboBox.Name = "firmaCombox";
+            this.firmaComboBox.Name = "firmaComboBox";
             this.firmaComboBox.Size = new System.Drawing.Size(298, 21);
             this.firmaComboBox.TabIndex = 8;
             // 

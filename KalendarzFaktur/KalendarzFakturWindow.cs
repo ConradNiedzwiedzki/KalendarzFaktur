@@ -22,6 +22,7 @@ namespace KalendarzFaktur
         UsunFirme _usunFirmeForm;
         Task _taskAktulizacjiPola;
         bool _zabijtaskAktualizacjiPola;
+        const string _sciezkaDoBazyPodpowiedziFirm = "firmy.json";
 
         public KalendarzFakturWindow()
         {
@@ -34,7 +35,6 @@ namespace KalendarzFaktur
 
             ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
             AktualizujKalendarz();
-            AktualizujFirmyWComboBoxEdycji();
 
             WyczyscSzczegolyFaktury();
 
@@ -69,15 +69,6 @@ namespace KalendarzFaktur
                 kalendarzMiesiac.AddBoldedDate(wyswFakt.DateTimeFaktury);
             }
             kalendarzMiesiac.UpdateBoldedDates();
-        }
-
-        public void AktualizujFirmyWComboBoxEdycji()
-        {
-            var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
-            foreach (WyswietlFakture wyswFakt in faktury)
-            {
-                edytujFirme.Items.Add(wyswFakt.Firma);
-            }
         }
 
         public void ZaktualizujTabeleKalendarzaFaktur(bool poleZedytowane)

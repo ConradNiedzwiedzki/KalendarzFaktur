@@ -34,7 +34,7 @@
             this.kwota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.edytujFirme = new System.Windows.Forms.ComboBox();
+            this.edytujFirme = new System.Windows.Forms.TextBox();
             this.edycjaKwotyTextBox = new System.Windows.Forms.TextBox();
             this.anulujEdycjeButton = new System.Windows.Forms.Button();
             this.zapiszZmianyButton = new System.Windows.Forms.Button();
@@ -234,7 +234,6 @@
             // 
             // EdytujFirme
             // 
-            this.edytujFirme.FormattingEnabled = true;
             this.edytujFirme.Location = new System.Drawing.Point(6, 83);
             this.edytujFirme.Name = "EdytujFirme";
             this.edytujFirme.Size = new System.Drawing.Size(318, 21);
@@ -364,7 +363,7 @@
         private System.Windows.Forms.Label nazwaFirmyLabel;
         private System.Windows.Forms.Label kwotaLabel;
         private System.Windows.Forms.Label dataFakturyLabel;
-        private System.Windows.Forms.ComboBox edytujFirme;
+        private System.Windows.Forms.TextBox edytujFirme;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem firmyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usunFirmeZBazyPodpowiedziToolStripMenuItem;
