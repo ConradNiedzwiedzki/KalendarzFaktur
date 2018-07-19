@@ -19,6 +19,7 @@ namespace KalendarzFaktur
         readonly DataGridViewCellStyle _stylOstrzezenia;
         readonly DataGridViewCellStyle _stylWygaszenia;
         DodajFakture _dodajFaktureForm;
+        UsunFirme _usunFirmeForm;
         Task _taskAktulizacjiPola;
         bool _zabijtaskAktualizacjiPola;
 
@@ -49,13 +50,13 @@ namespace KalendarzFaktur
             _stylWygaszenia = new DataGridViewCellStyle();
             _stylWygaszenia.BackColor = Color.LightGray;
             _stylWygaszenia.SelectionBackColor = Color.LightGray;
-            TabelaFaktur.ClearSelection();
+            tabelaFaktur.ClearSelection();
 
         }
 
         protected override void OnShown(EventArgs e)
         {
-            this.TabelaFaktur.Focus();
+            this.tabelaFaktur.Focus();
             base.OnShown(e);
         }
 
@@ -75,60 +76,60 @@ namespace KalendarzFaktur
             var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
             foreach (WyswietlFakture wyswFakt in faktury)
             {
-                EdytujFirme.Items.Add(wyswFakt.Firma);
+                edytujFirme.Items.Add(wyswFakt.Firma);
             }
         }
 
         public void ZaktualizujTabeleKalendarzaFaktur(bool poleZedytowane)
         {
-            int liczbaPoprzednichFaktur = TabelaFaktur.RowCount;
+            int liczbaPoprzednichFaktur = tabelaFaktur.RowCount;
             var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
             var posortowane = faktury.OrderBy(fkt => fkt.DateTimeFaktury).ToArray();
-            TabelaFaktur.RowCount = posortowane.Length;
+            tabelaFaktur.RowCount = posortowane.Length;
             for (int i = 0; i < posortowane.Length; i++)
             {
                 var daysRemaining = (posortowane[i].DateTimeFaktury - DateTime.Now).Days;
 
                 if (daysRemaining >= 7)
                 {
-                    TabelaFaktur[0, i].Style = _stylDomyslny;
-                    TabelaFaktur[1, i].Style = _stylDomyslny;
-                    TabelaFaktur[2, i].Style = _stylDomyslny;
+                    tabelaFaktur[0, i].Style = _stylDomyslny;
+                    tabelaFaktur[1, i].Style = _stylDomyslny;
+                    tabelaFaktur[2, i].Style = _stylDomyslny;
                 }
                 if (daysRemaining < 7 && daysRemaining >= 1)
                 {
-                    TabelaFaktur[0, i].Style = _stylOstrzezenia;
-                    TabelaFaktur[1, i].Style = _stylOstrzezenia;
-                    TabelaFaktur[2, i].Style = _stylOstrzezenia;
+                    tabelaFaktur[0, i].Style = _stylOstrzezenia;
+                    tabelaFaktur[1, i].Style = _stylOstrzezenia;
+                    tabelaFaktur[2, i].Style = _stylOstrzezenia;
                 }
                 if (daysRemaining < 1)
                 {
-                    TabelaFaktur[0, i].Style = _stylPilny;
-                    TabelaFaktur[1, i].Style = _stylPilny;
-                    TabelaFaktur[2, i].Style = _stylPilny;
+                    tabelaFaktur[0, i].Style = _stylPilny;
+                    tabelaFaktur[1, i].Style = _stylPilny;
+                    tabelaFaktur[2, i].Style = _stylPilny;
                 }
 
                 if (daysRemaining < 0)
                 {
-                    TabelaFaktur[0, i].Style = _stylWygaszenia;
-                    TabelaFaktur[1, i].Style = _stylWygaszenia;
-                    TabelaFaktur[2, i].Style = _stylWygaszenia;
+                    tabelaFaktur[0, i].Style = _stylWygaszenia;
+                    tabelaFaktur[1, i].Style = _stylWygaszenia;
+                    tabelaFaktur[2, i].Style = _stylWygaszenia;
                 }
 
-                TabelaFaktur[0, i].Value = posortowane[i].Firma;
-                TabelaFaktur[1, i].Value = posortowane[i].Data;
-                TabelaFaktur[2, i].Value = posortowane[i].Kwota;
+                tabelaFaktur[0, i].Value = posortowane[i].Firma;
+                tabelaFaktur[1, i].Value = posortowane[i].Data;
+                tabelaFaktur[2, i].Value = posortowane[i].Kwota;
             }
 
             if (poleZedytowane)
             {
                 WyczyscSzczegolyFaktury();
-                TabelaFaktur.ClearSelection();
-                TabelaFaktur.Height = TabelaFaktur.RowCount * _wysokoscRzeduTabeliFaktur;
+                tabelaFaktur.ClearSelection();
+                tabelaFaktur.Height = tabelaFaktur.RowCount * _wysokoscRzeduTabeliFaktur;
                 _przyciskDoWyszukiwaniaFaktur.Clear();
                 for (int i = 0; i < posortowane.Length; i++)
                 {
-                    TabelaFaktur[0, i].Tag = i;
+                    tabelaFaktur[0, i].Tag = i;
                     _przyciskDoWyszukiwaniaFaktur.Add(i, new Tuple<string, DateTime, double>(posortowane[i].Firma, posortowane[i].DateTimeFaktury, Convert.ToDouble(posortowane[i].Kwota)));
                 }
             }
@@ -149,66 +150,66 @@ namespace KalendarzFaktur
 
         void ClickWKomorkeTabeliFaktur(object sender, DataGridViewCellEventArgs e)
         {
-            var wybraneKomorki = TabelaFaktur.SelectedCells;
+            var wybraneKomorki = tabelaFaktur.SelectedCells;
             var tag = (int) wybraneKomorki[0].Tag;
             var szczegoly = _przyciskDoWyszukiwaniaFaktur[tag];
             var firma = szczegoly.Item1;
             var dateTime = szczegoly.Item2;
             var kwota = szczegoly.Item3;
-            EdytujFirme.Text = firma;
-            EdycjaDatyPicker.Value = dateTime;
-            EdycjaKwotyTextBox.Text = kwota.ToString();
+            edytujFirme.Text = firma;
+            edycjaDatyPicker.Value = dateTime;
+            edycjaKwotyTextBox.Text = kwota.ToString();
             WlaczPolaSzczegolowFaktury();
             WylaczPolaEdycji();
         }
 
         void WlaczPolaSzczegolowFaktury()
         {
-            EdytujFirme.Visible = true;
-            EdycjaDatyPicker.Visible = true;
-            EdycjaKwotyTextBox.Visible = true;
-            EdytujFaktureButton.Visible = true;
-            UsunFaktureButton.Visible = true;
-            EdytujFaktureButton.Enabled = true;
-            UsunFaktureButton.Enabled = true;
+            edytujFirme.Visible = true;
+            edycjaDatyPicker.Visible = true;
+            edycjaKwotyTextBox.Visible = true;
+            edytujFaktureButton.Visible = true;
+            usunFaktureButton.Visible = true;
+            edytujFaktureButton.Enabled = true;
+            usunFaktureButton.Enabled = true;
         }
 
         void WylaczPolaSzczegolowFaktury()
         {
-            UsunFaktureButton.Enabled = false;
-            EdytujFaktureButton.Enabled = false;
-            EdytujFirme.Visible = false;
-            EdycjaDatyPicker.Visible = false;
-            EdycjaKwotyTextBox.Visible = false;
-            EdytujFaktureButton.Visible = false;
-            UsunFaktureButton.Visible = false;
+            usunFaktureButton.Enabled = false;
+            edytujFaktureButton.Enabled = false;
+            edytujFirme.Visible = false;
+            edycjaDatyPicker.Visible = false;
+            edycjaKwotyTextBox.Visible = false;
+            edytujFaktureButton.Visible = false;
+            usunFaktureButton.Visible = false;
         }
 
         void WlaczPolaEdycji()
         {
-            EdytujFaktureButton.Visible = false;
-            AnulujEdycjeButton.Visible = true;
-            ZapiszZmianyButton.Visible = true;
-            UsunFaktureButton.Enabled = false;
-            EdycjaDatyPicker.Enabled = true;
-            EdycjaKwotyTextBox.Enabled = true;
-            EdytujFirme.Enabled = true;
+            edytujFaktureButton.Visible = false;
+            anulujEdycjeButton.Visible = true;
+            zapiszZmianyButton.Visible = true;
+            usunFaktureButton.Enabled = false;
+            edycjaDatyPicker.Enabled = true;
+            edycjaKwotyTextBox.Enabled = true;
+            edytujFirme.Enabled = true;
         }
 
         void WylaczPolaEdycji()
         {
-            EdytujFaktureButton.Visible = true;
-            AnulujEdycjeButton.Visible = false;
-            ZapiszZmianyButton.Visible = false;
-            UsunFaktureButton.Enabled = true;
-            EdycjaDatyPicker.Enabled = false;
-            EdycjaKwotyTextBox.Enabled = false;
-            EdytujFirme.Enabled = false;
+            edytujFaktureButton.Visible = true;
+            anulujEdycjeButton.Visible = false;
+            zapiszZmianyButton.Visible = false;
+            usunFaktureButton.Enabled = true;
+            edycjaDatyPicker.Enabled = false;
+            edycjaKwotyTextBox.Enabled = false;
+            edytujFirme.Enabled = false;
         }
 
         void WyczyscSzczegolyFaktury()
         {
-            EdytujFirme.Text = "";
+            edytujFirme.Text = "";
             WylaczPolaEdycji();
             WylaczPolaSzczegolowFaktury();
         }
@@ -220,47 +221,47 @@ namespace KalendarzFaktur
 
         void UsunFaktureButtonClick(object sender, EventArgs e)
         {
-            var firmaFaktury = EdytujFirme.Text;
-            var dataFaktury = EdycjaDatyPicker.Value;
+            var firmaFaktury = edytujFirme.Text;
+            var dataFaktury = edycjaDatyPicker.Value;
             var wynik = MessageBox.Show("Czy jesteś pewien, że chcesz usunąć fakturę z " + firmaFaktury + "?!", "", MessageBoxButtons.YesNo);
             if (wynik == DialogResult.Yes)
             {
                 _kalendarzFaktur.UsunFakture(firmaFaktury, dataFaktury);
                 ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
                 AktualizujKalendarz();
-                TabelaFaktur.ClearSelection();
+                tabelaFaktur.ClearSelection();
                 WyczyscSzczegolyFaktury();
             }
         }
 
         void ZapiszZmianyButtonClick(object sender, EventArgs e)
         {
-            if (EdycjaKwotyTextBox.Text == String.Empty)
+            if (edycjaKwotyTextBox.Text == String.Empty)
             {
                 MessageBox.Show("Zapomniałeś o wpisaniu kwoty!");
             }
-            else if (!ZawieraTylkoCyfry(EdycjaKwotyTextBox.Text))
+            else if (!ZawieraTylkoCyfry(edycjaKwotyTextBox.Text))
             {
                 MessageBox.Show("Kwota może zawierać tylko nieujemne cyfry i przecinek! (np. 123,45)");
             }
             else
             {
-                if (Convert.ToDouble(EdycjaKwotyTextBox.Text) < 0)
+                if (Convert.ToDouble(edycjaKwotyTextBox.Text) < 0)
                 {
                     MessageBox.Show("Kwota nie może być mniejsza od zera!");
                 }
-                else if (EdytujFirme.Text == String.Empty)
+                else if (edytujFirme.Text == String.Empty)
                 {
                     MessageBox.Show("Wpisz lub wybierz nazwę firmy!");
                 }
                 else
                 {
-                    var data = EdycjaDatyPicker.Value;
-                    var nowaKwota = Convert.ToDouble(EdycjaKwotyTextBox.Text);
-                    var nowaFirma = EdytujFirme.Text;
+                    var data = edycjaDatyPicker.Value;
+                    var nowaKwota = Convert.ToDouble(edycjaKwotyTextBox.Text);
+                    var nowaFirma = edytujFirme.Text;
 
                     var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
-                    var tag = (int)TabelaFaktur.SelectedCells[0].Tag;
+                    var tag = (int)tabelaFaktur.SelectedCells[0].Tag;
                     var poprzedniaFirma = _przyciskDoWyszukiwaniaFaktur[tag].Item1;
                     var poprzedniCzas = _przyciskDoWyszukiwaniaFaktur[tag].Item2;
                     var poprzedniaKwota = _przyciskDoWyszukiwaniaFaktur[tag].Item3;
@@ -287,11 +288,11 @@ namespace KalendarzFaktur
 
         void AnulujEdycjeButtonClick(object sender, EventArgs e)
         {
-            var tag = (int)TabelaFaktur.SelectedCells[0].Tag;
+            var tag = (int)tabelaFaktur.SelectedCells[0].Tag;
             var daneFaktury = _przyciskDoWyszukiwaniaFaktur[tag];
-            EdytujFirme.Text = daneFaktury.Item1;
-            EdycjaDatyPicker.Value = daneFaktury.Item2;
-            EdycjaKwotyTextBox.Text = daneFaktury.Item3.ToString();
+            edytujFirme.Text = daneFaktury.Item1;
+            edycjaDatyPicker.Value = daneFaktury.Item2;
+            edycjaKwotyTextBox.Text = daneFaktury.Item3.ToString();
             WylaczPolaEdycji();
         }
 
@@ -323,7 +324,7 @@ namespace KalendarzFaktur
             }
             else if (FormWindowState.Normal == this.WindowState)
             {
-                TabelaFaktur.ClearSelection();
+                tabelaFaktur.ClearSelection();
                 WyczyscSzczegolyFaktury();
                 ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: false);
                 AktualizujKalendarz();
@@ -369,19 +370,19 @@ namespace KalendarzFaktur
 
         void ClickPanelaFaktur(object sender, EventArgs e)
         {
-            TabelaFaktur.ClearSelection();
+            tabelaFaktur.ClearSelection();
             WyczyscSzczegolyFaktury();
         }
 
         void ClickOknaKalendarzaFaktur(object sender, EventArgs e)
         {
-            TabelaFaktur.ClearSelection();
+            tabelaFaktur.ClearSelection();
             WyczyscSzczegolyFaktury();
         }
 
         void MenuStrip1Click(object sender, EventArgs e)
         {
-            TabelaFaktur.ClearSelection();
+            tabelaFaktur.ClearSelection();
             WyczyscSzczegolyFaktury();
         }
 
@@ -393,6 +394,11 @@ namespace KalendarzFaktur
         private void eksprotujFakturyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EksprotujFaktury();
+        }
+
+        private void usuńFirmęZBazyPodpowiedziToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _usunFirmeForm = new UsunFirme();
         }
     }
 }

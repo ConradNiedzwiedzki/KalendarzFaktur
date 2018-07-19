@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace KalendarzFaktur
@@ -10,13 +12,23 @@ namespace KalendarzFaktur
 
         readonly KalendarzFaktur _kalendarzFaktur;
         readonly KalendarzFakturWindow _kalendarzFakturForm;
+        const string _sciezkaDoBazyPodpowiedziFirm = "firmy.json";
+        readonly List<string> _firmy;
 
         public DodajFakture(KalendarzFaktur kalendarzFaktur, KalendarzFakturWindow kalendarzFakturForm)
         {
             InitializeComponent();
             _kalendarzFaktur = kalendarzFaktur;
             _kalendarzFakturForm = kalendarzFakturForm;
-            FirmaCombox.Text = _wpiszNazweFirmy;
+            firmaComboBox.Text = _wpiszNazweFirmy;
+            if (File.Exists(_sciezkaDoBazyPodpowiedziFirm))
+            {
+                _firmy = WczytajFirmy();
+            }
+            else
+            {
+                _firmy = new List<string>();
+            }
             AktualizujFirmyWComboBoxDodawania();
             this.ShowDialog();
         }
@@ -40,17 +52,20 @@ namespace KalendarzFaktur
                     MessageBox.Show("Kwota nie może być mniejsza od zera!");
                     kwotaTextBox.ResetText();
                 }
-                else if (FirmaCombox.Text == _wpiszNazweFirmy || FirmaCombox.Text == String.Empty)
+                else if (firmaComboBox.Text == _wpiszNazweFirmy || firmaComboBox.Text == String.Empty)
                 {
                     MessageBox.Show("Wpisz lub wybierz nazwę firmy!");
-                    FirmaCombox.ResetText();
+                    firmaComboBox.ResetText();
                 }
                 else
                 {
-                    var data = NowaDataFakturyPicker.Value;
+                    var data = nowaDataFakturyPicker.Value;
                     double kwota = Convert.ToDouble(kwotaTextBox.Text);
                     var dateTimeFaktury = new DateTime(data.Year, data.Month, data.Day);
-                    _kalendarzFaktur.DodajFakture(FirmaCombox.Text, dateTimeFaktury, kwota);
+
+                    DopiszNowaFirmeDoBazy(firmaComboBox.Text);
+
+                    _kalendarzFaktur.DodajFakture(firmaComboBox.Text, dateTimeFaktury, kwota);
                     _kalendarzFakturForm.Invoke(new Action(() => _kalendarzFakturForm.ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true)));
                     _kalendarzFakturForm.Invoke(new Action(_kalendarzFakturForm.AktualizujKalendarz));
                     this.Close();
@@ -71,38 +86,44 @@ namespace KalendarzFaktur
             return true;
         }
 
-        void TextBoxFirmyMouseDown(object sender, MouseEventArgs e)
-        {
-            if (FirmaCombox.Text.Equals(_wpiszNazweFirmy))
-            {
-                FirmaCombox.Text = "";
-            }
-        }
-
-        void TextBoxFirmyTextChanged(object sender, EventArgs e)
-        {
-            if (!FirmaCombox.Text.Equals(_wpiszNazweFirmy) && !FirmaCombox.Text.Equals(""))
-            {
-                DodajFaktureButton.Enabled = true;
-            }
-            else
-            {
-                DodajFaktureButton.Enabled = false;
-            }
-        }
-
         public void AktualizujFirmyWComboBoxDodawania()
         {
-            var faktury = _kalendarzFaktur.PobierzAktywneFaktury();
-            foreach (WyswietlFakture wyswFakt in faktury)
+            foreach(string f in _firmy)
             {
-                FirmaCombox.Items.Add(wyswFakt.Firma);
+                firmaComboBox.Items.Add(f);
             }
         }
 
-        private void kwotaTextBox_TextChanged(object sender, EventArgs e)
+        void DopiszNowaFirmeDoBazy(string firma)
         {
+            bool jestNowaFirma = true;
+            foreach(string f in _firmy)
+            {
+                if (f == firma)
+                    jestNowaFirma = false;
+            }
+            if (jestNowaFirma)
+            {
+                _firmy.Add(firma);
+                var streamWriter = new StreamWriter(_sciezkaDoBazyPodpowiedziFirm);
+                var serializowane = JsonConvert.SerializeObject(_firmy, Formatting.Indented);
+                streamWriter.Write(serializowane);
+                streamWriter.Close();
+            }
+        }
 
+        List<string> WczytajFirmy()
+        {
+            var streamReader = new StreamReader(_sciezkaDoBazyPodpowiedziFirm);
+            var daneFirmyString = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            var zapisaneFirmy = JsonConvert.DeserializeObject<List<string>>(daneFirmyString);
+            if (zapisaneFirmy != null)
+            {
+                return zapisaneFirmy;
+            }
+            return new List<string>();
         }
     }
 }

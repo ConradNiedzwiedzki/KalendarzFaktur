@@ -75,6 +75,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsunFirme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsunFirme.Designer.cs">
+      <DependentUpon>UsunFirme.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DodajFakture.resx">
       <DependentUpon>DodajFakture.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +96,9 @@
     </Compile>
     <EmbeddedResource Include="KalendarzFakturWindow.resx">
       <DependentUpon>KalendarzFakturWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsunFirme.resx">
+      <DependentUpon>UsunFirme.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
