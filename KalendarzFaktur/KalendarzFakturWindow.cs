@@ -214,10 +214,11 @@ namespace KalendarzFaktur
         {
             var firmaFaktury = edytujFirme.Text;
             var dataFaktury = edycjaDatyPicker.Value;
+            var kwotaFaktury = edycjaKwotyTextBox.Text;
             var wynik = MessageBox.Show("Czy jesteś pewien, że chcesz usunąć fakturę z " + firmaFaktury + "?!", "", MessageBoxButtons.YesNo);
             if (wynik == DialogResult.Yes)
             {
-                _kalendarzFaktur.UsunFakture(firmaFaktury, dataFaktury);
+                _kalendarzFaktur.UsunFakture(firmaFaktury, dataFaktury, kwotaFaktury);
                 ZaktualizujTabeleKalendarzaFaktur(poleZedytowane: true);
                 AktualizujKalendarz();
                 tabelaFaktur.ClearSelection();

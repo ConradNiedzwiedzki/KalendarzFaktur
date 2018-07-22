@@ -71,12 +71,12 @@ namespace KalendarzFaktur
             ZapiszFaktury();
         }
 
-        public void UsunFakture(string firma, DateTime czas)
+        public void UsunFakture(string firma, DateTime czas, string kwota)
         {
             bool znalezionoFakture = false;
             foreach (var @faktura in _faktury)
             {
-                if (@faktura.Firma.Equals(firma) && @faktura.Data == czas)
+                if (@faktura.Firma.Equals(firma) && @faktura.Data == czas && @faktura.Kwota == Convert.ToDouble(kwota))
                 {
                     @faktura.Usunieta = true;
                     znalezionoFakture = true;
